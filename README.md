@@ -1,2 +1,3 @@
 # websocat-docker-image
-build websocat docker image for X86 and arm64
+
+websocat docker image for x86_64 and arm64
