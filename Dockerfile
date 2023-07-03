@@ -1,18 +1,19 @@
+# 第一阶段：构建阶段
 FROM curlimages/curl AS builder
 
 ARG TARGETPLATFORM
 
 # 根据目标架构下载对应的二进制文件
-RUN if [ "$TARGETPLATFORM" == "linux/arm64" ]; then \
-    echo "$TARGETPLATFORM"&& \
-    curl -L https://github.com/vi/websocat/releases/download/v1.11.0/websocat.aarch64-unknown-linux-musl -o /tmp/websocat; \
-    elif [ "$TARGETPLATFORM" == "linux/amd64" ]; then \
-    echo "$TARGETPLATFORM"&& \
-    curl -L https://github.com/vi/websocat/releases/download/v1.11.0/websocat.x86_64-unknown-linux-musl -o /tmp/websocat; \
-    fi && \
-    chmod +x /tmp/websocat
+RUN case "$TARGETPLATFORM" in \
+    "linux/arm64") \
+    curl -L https://github.com/vi/websocat/releases/download/v1.11.0/websocat.aarch64-unknown-linux-musl -o /tmp/websocat ;; \
+    "linux/amd64") \
+    curl -L https://github.com/vi/websocat/releases/download/v1.11.0/websocat.x86_64-unknown-linux-musl -o /tmp/websocat ;; \
+    esac && \
+    chmod +x /tmp/websocat && \
+    /tmp/websocat --version
 
-# 创建目标容器镜像
+# 第二阶段：最终镜像
 FROM alpine:3.15
 
 WORKDIR /
