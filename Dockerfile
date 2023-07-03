@@ -5,10 +5,10 @@ ARG TARGETPLATFORM
 # 根据目标架构下载对应的二进制文件
 RUN if [ "$TARGETPLATFORM" == "linux/arm64" ]; then \
     echo "$TARGETPLATFORM"&& \
-    curl -L https://github.com/vi/websocat/releases/download/v1.11.0/websocat.aarch64-unknown-linux-musl -o /tmp/websocat; \
+    curl -L https://github.com/vi/websocat/releases/download/v1.10.0/websocat.aarch64-unknown-linux-musl -o /tmp/websocat; \
     elif [ "$TARGETPLATFORM" == "linux/amd64" ]; then \
     echo "$TARGETPLATFORM"&& \
-    curl -L https://github.com/vi/websocat/releases/download/v1.11.0/websocat.x86_64-unknown-linux-musl -o /tmp/websocat; \
+    curl -L https://github.com/vi/websocat/releases/download/v1.10.0/websocat.x86_64-unknown-linux-musl -o /tmp/websocat; \
     fi && \
     chmod +x /tmp/websocat
 
